@@ -1,15 +1,8 @@
+import BodyHome from "../../components/Layouts/Body/BodyHome"
+
 const Home = () => {
 
-    return (
-        <>
-        
-            <div>
-                
-
-            </div>
-        
-        </>
-    )
+    return <BodyHome/>
 
 
 }
