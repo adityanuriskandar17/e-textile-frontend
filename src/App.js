@@ -1,11 +1,14 @@
 import React from "react";
 import "./index.css";
-import Home from "./Pages/Home/Home";
+import Header from "./components/Layouts/Header";
+import Loginpage from "./components/Layouts/Body/Loginpage";
 
 function App() {
   return (
-    
-      <Home/>
+    <>
+      <Header />
+      <Loginpage />
+    </>
   );
 }
 
