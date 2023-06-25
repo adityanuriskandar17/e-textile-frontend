@@ -6,9 +6,11 @@ import Footer from "../../components/Layouts/Footer";
 function Register() {
   return (
     <>
+    <div className="overflow-x-hidden">
       <Header />
       <RegisterPage />
       <Footer />
+      </div>
     </>
   );
 }

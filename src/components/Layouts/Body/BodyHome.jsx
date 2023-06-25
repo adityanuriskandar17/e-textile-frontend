@@ -326,7 +326,7 @@ const BodyHome = () => {
                   <p className="mt-[8px] text-sm">Friendly 24/7 customer support</p>
                 
                 </div>
-                <div className="relative flex flex-col items-center justify-center w-[262px] h-[161px]">
+                <div className="relative flex flex-col items-center justify-center w-[262px] h-[161px] mb-24">
                   <img className="mx-auto top-0" src={guarate} alt="" />
                   <p className="mt-[24px] text-xl font-semibold">MONEY BACK GUARANTEE</p>
                   <p className="mt-[8px] text-sm">We reurn money within 30 days</p>
@@ -342,7 +342,6 @@ const BodyHome = () => {
 
 
           </div>
-          <div className="mt-[800px]">adsadas</div>
         </div>
       </div>
     </>
