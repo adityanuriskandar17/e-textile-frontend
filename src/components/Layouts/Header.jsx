@@ -37,7 +37,7 @@ function Header() {
             </label>
             <div className="relative">
               <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
-                <img src="/images/search.svg" alt="Whistlist" />
+                <img src="/images/search.svg" alt="Search" />
               </div>
               <input
                 type="search"
@@ -52,7 +52,7 @@ function Header() {
             <a href="/">
               <img src="/images/whistlist.svg" alt="Whistlist" />
             </a>
-            <a a href="/">
+            <a href="/">
               <img src="/images/cart.svg" alt="cart" />
             </a>
           </div>

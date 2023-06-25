@@ -1,15 +1,10 @@
 import React from "react";
 import "./index.css";
-import Header from "./components/Layouts/Header";
-import Loginpage from "./components/Layouts/Body/Loginpage";
+import Register from "./Pages/Register/Register";
+import Login from "./Pages/Login/Login";
 
 function App() {
-  return (
-    <>
-      <Header />
-      <Loginpage />
-    </>
-  );
+  return <></>;
 }
 
 export default App;
