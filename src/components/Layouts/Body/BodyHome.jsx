@@ -8,10 +8,11 @@ const BodyHome = () => {
   return (
     <>
       <div className="relative min-h-screen">
-        <div className="container relative top-[300px] left-[183px] right-[137px] ">
+        <div className="container relative top-[0px] left-[200px] right-[137px] ">
           <div className="flex flex-row justify-between">
             <div className="flex flex-col relative  font-poppins font-semibold ">
-              <div className="">
+              <div className="ml-6 h-[50px] w-[244px] border-r-2"></div>
+              <div className="ml-6 w-[244px] border-r-2">
                 <p className="mb-[16px]">Luxotic Knit</p>
                 <p className="mb-[16px]">Raw Denim</p>
                 <p className="mb-[16px]">Cotton Combed</p>
@@ -24,14 +25,14 @@ const BodyHome = () => {
               </div>
             </div>
 
-            <div className="flex mr-[180px] text-white ">
+            <div className="flex mr-[180px] mt-[50px] text-white ">
               <div className="w-[1035px] h-[344px] bg-black rounded-lg">
                 <p className="  font-poppins ml-[64px] mt-[73px]">-Luxotic Knit 1.0</p>
                 <h1 className="  font-inter ml-[64px] mt-[35px] text-5xl font-semibold ">New Version  </h1>
                 <h1 className="  font-inter ml-[64px] mt-[2px] text-5xl font font-semibold">of Knit Material.</h1>
                 <div className="flex flex-row ml-[64px] mt-[30px]">
                   <h1 className="font-poppins font-medium border-b-[1px]">Shop Now</h1>
-                  <img src={arrowR} className="bg-white ml-2 rounded-sm" alt="" />
+                  <img src={arrowR} className="bg-white ml-2 rounded-sm " alt="" />
                 </div>
               </div>
             </div>
@@ -141,11 +142,13 @@ const BodyHome = () => {
             </div>
             <div className="flex justify-center mt-[62px] font-poppins ">
               <button className="w-[234px] h-[56px] bg-btn2 rounded-md font-medium text-white">View All Products</button>
+              
             </div>
+            <div className="ml-[180px] w-[1170px] mt-[75px] h-[0px] border-b-2"></div>
 
 
 
-            <div className="ml-[180px] mt-[160px]">
+            <div className="ml-[180px] mt-[85px]">
               <div className="flex flex-row mb-[20px]">
                 <div className="w-[20px] h-[40px] bg-btn2 mr-[16px] rounded-md"></div>
                 <p className="flex items-center text-btn2 font-poppins font-semibold">
@@ -193,7 +196,7 @@ const BodyHome = () => {
 
 
 
-            <div className="ml-[180px] mt-[160px]">
+            <div className="ml-[180px] mt-[97px]">
               <div className="flex flex-row mb-[20px]">
                 <div className="w-[20px] h-[40px] bg-btn2 mr-[16px] rounded-md"></div>
                 <p className="flex items-center text-btn2 font-poppins font-semibold">
@@ -257,7 +260,7 @@ const BodyHome = () => {
 
 
 
-            <div className="ml-[180px] mt-[160px]">
+            <div className="ml-[180px] mt-[150px]">
               <div className="flex flex-row mb-[20px]">
                 <div className="w-[20px] h-[40px] bg-btn2 mr-[16px] rounded-md"></div>
                 <p className="flex items-center text-btn2 font-poppins font-semibold">
