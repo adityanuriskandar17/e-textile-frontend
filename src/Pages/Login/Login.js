@@ -6,9 +6,11 @@ import Footer from "../../components/Layouts/Footer";
 function Login() {
   return (
     <>
-      <Header />
-      <Loginpage />
-      <Footer />
+      <div className="overflow-x-hidden">
+        <Header />
+        <Loginpage />
+        <Footer />
+      </div>
     </>
   );
 }
