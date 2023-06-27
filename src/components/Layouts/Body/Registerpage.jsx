@@ -14,9 +14,7 @@ function RegisterPage() {
 
         <div className="flex justify-center w-5/12 bg-white items-center">
           <div className="w-full sm:max-w-md p-5 mx-auto">
-            <h2 className="mb-6 font-poppins text-[36px]">
-              Log in to Exclusive
-            </h2>
+            <h2 className="mb-6 font-poppins text-[36px]">Create an account</h2>
             <p className="mb-12">Enter your details below</p>
             <form>
               <div className="mb-4">
