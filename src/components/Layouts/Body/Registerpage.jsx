@@ -22,7 +22,6 @@ function RegisterPage() {
     }
   }, [msg]);
 
-
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
@@ -55,12 +54,11 @@ function RegisterPage() {
 
         <div className="flex justify-center w-5/12 bg-white items-center">
           <div className="w-full sm:max-w-md p-5 mx-auto">
-          <h2 className="mb-6 font-poppins text-[36px]">Create an account</h2>
+            <h2 className="mb-6 font-poppins text-[36px]">Create an account</h2>
             <p className="mb-3">Enter your details below</p>
             <form onSubmit={handleRegister}>
               <div className="mb-4">
-                
-            <p className="mb-6 text-btn2 text-center">{msg}</p>
+                <p className="mb-6 text-btn2 text-center">{msg}</p>
                 <div className="flex items-center border border-gray-700 py-2">
                   <input
                     className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none font-poppins text-[16px]"
