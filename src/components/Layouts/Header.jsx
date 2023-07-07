@@ -1,13 +1,27 @@
+import axios from "axios";
 import Logo from "./Logo";
-
-const menus = [
-  { href: "/", text: "Home" },
-  { href: "/about", text: "Contact" },
-  { href: "/contact", text: "About" },
-  { href: "/contact", text: "Sign Up" },
-];
+import { useNavigate } from "react-router-dom";
 
 function Header() {
+  const navigate = useNavigate();
+  const logout = async () => {
+    try {
+      const ApiUrl = process.env.REACT_APP_API_URL;
+      await axios.delete(`${ApiUrl}/logout`);
+      navigate("/login");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // const menus = [
+  //   { href: "/", text: "Home" },
+  //   { href: "", text: "Contact" },
+  //   { text: "Logout", onClick: logout },
+  //   { href: "/register", text: "Sign Up" },
+  //   { href: "/login", text: "Login" },
+  // ];
+
   return (
     <header className="sticky top-0 bg-white z-10 shadow">
       <div className="container mx-auto p-6 flex justify-between">
@@ -15,15 +29,39 @@ function Header() {
           <Logo />
           <nav className="block px-[198px]">
             <ul className="flex space-x-2">
-              {menus.map((menu, index) => (
-                <li key={index}>
-                  <a href={menu.href}>
-                    <p className="px-3 py-2 leading-[160%] text-4 font-poppins">
-                      {menu.text}
-                    </p>
-                  </a>
-                </li>
-              ))}
+              <li>
+                <a href="/">
+                  <p className="px-3 py-2 leading-[160%] text-4 font-poppins">
+                    Home
+                  </p>
+                </a>
+              </li>
+              <li>
+                <a>
+                  <p className="px-3 py-2 leading-[160%] text-4 font-poppins">
+                    Contact
+                  </p>
+                </a>
+              </li>
+              <li>
+                <a href="/login">
+                  <p className="px-3 py-2 leading-[160%] text-4 font-poppins">
+                    Login
+                  </p>
+                </a>
+              </li>
+              <li>
+                <a href="/register">
+                  <p className="px-3 py-2 leading-[160%] text-4 font-poppins">
+                    Register
+                  </p>
+                </a>
+              </li>
+              <li>
+                  <p className="px-3 py-2 leading-[160%] text-4 font-poppins" onClick={logout} style={{ cursor: 'pointer' }}>
+                    Logout
+                  </p>
+              </li>
             </ul>
           </nav>
         </div>

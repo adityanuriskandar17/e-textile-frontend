@@ -1,6 +1,47 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function RegisterPage() {
+  const navigate = useNavigate();
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confPassword, setConfPassword] = useState("");
+  const [msg, setMsg] = useState("");
+
+  useEffect(() => {
+    if (msg !== "") {
+      const timer = setTimeout(() => {
+        setMsg("");
+      }, 2000);
+
+      return () => {
+        clearTimeout(timer);
+      };
+    }
+  }, [msg]);
+
+
+  const handleRegister = async (e) => {
+    e.preventDefault();
+    try {
+      const ApiUrl = process.env.REACT_APP_API_URL;
+      const response = await axios.post(`${ApiUrl}/register`, {
+        username: username,
+        email: email,
+        password: password,
+        confPassword: confPassword,
+      });
+      console.log(response.data);
+      navigate("/login");
+    } catch (error) {
+      if (error.response) {
+        setMsg(error.response.data.error);
+      }
+    }
+  };
+
   return (
     <>
       <main className="h-screen w-screen bg-white flex pr-[135px] pt-[76px] pb-[173px]">
@@ -14,47 +55,65 @@ function RegisterPage() {
 
         <div className="flex justify-center w-5/12 bg-white items-center">
           <div className="w-full sm:max-w-md p-5 mx-auto">
-            <h2 className="mb-6 font-poppins text-[36px]">
-              Log in to Exclusive
-            </h2>
-            <p className="mb-12">Enter your details below</p>
-            <form>
+          <h2 className="mb-6 font-poppins text-[36px]">Create an account</h2>
+            <p className="mb-3">Enter your details below</p>
+            <form onSubmit={handleRegister}>
               <div className="mb-4">
-                {/* Input Name */}
+                
+            <p className="mb-6 text-btn2 text-center">{msg}</p>
                 <div className="flex items-center border border-gray-700 py-2">
                   <input
                     className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none font-poppins text-[16px]"
                     type="text"
-                    placeholder="Name"
-                    aria-label="Email"
+                    placeholder="Username"
+                    aria-label="username"
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
                   />
                 </div>
               </div>
               <div className="mb-4">
-                {/* Input Email */}
                 <div className="flex items-center border border-gray-700 py-2">
                   <input
                     className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none font-poppins text-[16px]"
                     type="email"
-                    placeholder="Email or Phone Number"
+                    placeholder="Email"
                     aria-label="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                   />
                 </div>
               </div>
               <div className="mb-4">
-                {/* Input Password */}
                 <div className="flex items-center border border-gray-700 py-2">
                   <input
                     className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none font-poppins text-[16px]"
                     type="password"
                     placeholder="Password"
                     aria-label="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div className="mb-4">
+                <div className="flex items-center border border-gray-700 py-2">
+                  <input
+                    className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none font-poppins text-[16px]"
+                    type="password"
+                    placeholder="Confirm Password"
+                    aria-label="Password"
+                    value={confPassword}
+                    onChange={(e) => setConfPassword(e.target.value)}
                   />
                 </div>
               </div>
               <div className="mt-10 items-center">
                 <div className="flex items-center">
-                  <button className="w-full inline-flex items-center justify-center px-12 py-4 bg-red-600 border border-transparent rounded-md font-semibold capitalize font-poppins text-white hover:bg-red-700 active:bg-red-700 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 disabled:opacity-25 transition">
+                  <button
+                    className="w-full inline-flex items-center justify-center px-12 py-4 bg-red-600 border border-transparent rounded-md font-semibold capitalize font-poppins text-white hover:bg-red-700 active:bg-red-700 focus:outline-none focus:border-red-700 focus:ring focus:ring-red-200 disabled:opacity-25 transition"
+                    type="submit"
+                  >
                     Create Account
                   </button>
                 </div>
@@ -75,11 +134,10 @@ function RegisterPage() {
                     href="/"
                     className="text-[16px] text-[#000000] font-poppins"
                   >
-                    {" "}
-                    Already have account?{" "}
+                    Already have an account?
                   </p>
                   <a
-                    href="/"
+                    href="/login"
                     className="text-[16px] text-[#000000] font-poppins"
                   >
                     Log in
