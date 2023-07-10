@@ -3,14 +3,76 @@ import cs from "../../../assets/utilsHome/service.svg";
 import guarate from "../../../assets/utilsHome/guarantee.svg";
 import arrowL from "../../../assets/utilsHome/arrowL.svg";
 import arrowR from "../../../assets/utilsHome/arrowR.svg";
-
-// import useEffect,useState dan axios
-import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import jwt_decode from "jwt-decode";
+import { useEffect, useState } from "react";
 
 const BodyHome = () => {
+  const [username, setUsername] = useState("");
+  const [token, setToken] = useState("");
+  const [expire, setExpire] = useState("");
+  const [users, setUsers] = useState([]);
   const [products, setProducts] = useState([]);
   const [category, setCategory] = useState([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    refreshToken();
+  }, []);
+
+  const refreshToken = async () => {
+    try {
+      const ApiUrl = process.env.REACT_APP_API_URL;
+      const response = await axios.get(`${ApiUrl}/token`);
+      setToken(response.data.jwtToken);
+      const decoded = jwt_decode(response.data.jwtToken);
+
+      setUsername(decoded.username);
+      setExpire(decoded.exp);
+      // console.log(decoded.username);
+      // console.log(decoded.exp);
+      // console.log(decoded);
+    } catch (error) {
+      if (error.response) {
+        navigate("/");
+      }
+    }
+  };
+
+  const axiosJWT = axios.create();
+
+  axiosJWT.interceptors.request.use(
+    async (config) => {
+      const currentDate = new Date();
+      if (expire * 1000 < currentDate.getTime()) {
+        const ApiUrl = process.env.REACT_APP_API_URL;
+        const response = await axios.get(`${ApiUrl}/token`);
+        config.headers.Authorization = `Bearer ${response.data.jwtToken}`;
+        setToken(response.data.jwtToken);
+        const decoded = jwt_decode(response.data.jwtToken);
+
+        ///decoded.username = data user whos login
+        setUsername(decoded.username);
+        setExpire(decoded.exp);
+      }
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  const getUsers = async () => {
+    try {
+      const ApiUrl = process.env.REACT_APP_API_URL;
+      const response = await axiosJWT.get(`${ApiUrl}/users`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data);
+    } catch (error) {}
+  };
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -46,7 +108,9 @@ const BodyHome = () => {
             <div className="flex flex-col relative  font-poppins font-semibold ">
               <div className="ml-6 h-[50px] w-[244px] border-r-2"></div>
               <div className="ml-6 w-[244px] border-r-2">
-                <p className="mb-[16px]">Luxotic Knit</p>
+                <p className="mb-[16px]" onClick={getUsers}>
+                  Luxotic Knit
+                </p>
                 <p className="mb-[16px]">Raw Denim</p>
                 <p className="mb-[16px]">Cotton Combed</p>
                 <p className="mb-[16px]">Canvas Prestige</p>
