@@ -10,6 +10,7 @@ import axios from "axios";
 
 const BodyHome = () => {
   const [products, setProducts] = useState([]);
+  const [data, setData] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -23,6 +24,20 @@ const BodyHome = () => {
 
     fetchProducts();
   }, []);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("http://localhost:2002/category");
+        setData(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
     <>
       <div className="relative min-h-screen">
@@ -129,90 +144,7 @@ const BodyHome = () => {
               </div>
             </div>
             {/* ini dari be */}
-            {/* <div className="flex justify-center mt-[60px]">
-              <div className="grid grid-cols-4 gap-[30px] ">
-                <div className="w-[270px] h-[322px] bg-white rounded-lg mb-[60px]">
-                  <div className="w-[270px] h-[250px] bg-bgSecondary rounded-lg font-poppins">
-                    <div className="text-base font-medium relative top-[266px] mb-2">
-                      Produk 02
-                    </div>
-                    <div className="text-base text-btn2 relative top-[269px]">
-                      $20
-                    </div>
-                  </div>
-                </div>
-                <div className="w-[270px] h-[322px] bg-white rounded-lg ">
-                  <div className="w-[270px] h-[250px] bg-bgSecondary rounded-lg font-poppins">
-                    <div className="text-base font-medium relative top-[266px] mb-2">
-                      Produk 02
-                    </div>
-                    <div className="text-base text-btn2 relative top-[269px]">
-                      $20
-                    </div>
-                  </div>
-                </div>
-                <div className="w-[270px] h-[322px] bg-white rounded-lg ">
-                  <div className="w-[270px] h-[250px] bg-bgSecondary rounded-lg font-poppins">
-                    <div className="text-base font-medium relative top-[266px] mb-2">
-                      Produk 02
-                    </div>
-                    <div className="text-base text-btn2 relative top-[269px]">
-                      $20
-                    </div>
-                  </div>
-                </div>
-                <div className="w-[270px] h-[322px] bg-white rounded-lg ">
-                  <div className="w-[270px] h-[250px] bg-bgSecondary rounded-lg font-poppins">
-                    <div className="text-base font-medium relative top-[266px] mb-2">
-                      Produk 02
-                    </div>
-                    <div className="text-base text-btn2 relative top-[269px]">
-                      $20
-                    </div>
-                  </div>
-                </div>
-                <div className="w-[270px] h-[322px] bg-white rounded-lg ">
-                  <div className="w-[270px] h-[250px] bg-bgSecondary rounded-lg font-poppins">
-                    <div className="text-base font-medium relative top-[266px] mb-2">
-                      Produk 02
-                    </div>
-                    <div className="text-base text-btn2 relative top-[269px]">
-                      $20
-                    </div>
-                  </div>
-                </div>
-                <div className="w-[270px] h-[322px] bg-white rounded-lg ">
-                  <div className="w-[270px] h-[250px] bg-bgSecondary rounded-lg font-poppins">
-                    <div className="text-base font-medium relative top-[266px] mb-2">
-                      Produk 02
-                    </div>
-                    <div className="text-base text-btn2 relative top-[269px]">
-                      $20
-                    </div>
-                  </div>
-                </div>
-                <div className="w-[270px] h-[322px] bg-white rounded-lg ">
-                  <div className="w-[270px] h-[250px] bg-bgSecondary rounded-lg font-poppins">
-                    <div className="text-base font-medium relative top-[266px] mb-2">
-                      Produk 02
-                    </div>
-                    <div className="text-base text-btn2 relative top-[269px]">
-                      $20
-                    </div>
-                  </div>
-                </div>
-                <div className="w-[270px] h-[322px] bg-white rounded-lg ">
-                  <div className="w-[270px] h-[250px] bg-bgSecondary rounded-lg font-poppins">
-                    <div className="text-base font-medium relative top-[266px] mb-2">
-                      Produk 02
-                    </div>
-                    <div className="text-base text-btn2 relative top-[269px]">
-                      $20
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div> */}
+
             <div className="flex justify-center mt-[62px] font-poppins ">
               <button className="w-[234px] h-[56px] bg-btn2 rounded-md font-medium text-white">
                 View All Products
@@ -247,25 +179,15 @@ const BodyHome = () => {
             </div>
 
             <div className="flex justify-center mt-[60px]">
-              <div className="grid grid-cols-6 gap-[30px] ">
-                <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
-                  <p className="relative text-center"> abcd</p>
-                </div>
-                <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
-                  <p className="relative text-center"> abcd</p>
-                </div>
-                <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
-                  <p className="relative text-center"> abcd</p>
-                </div>
-                <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
-                  <p className="relative text-center"> abcd</p>
-                </div>
-                <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
-                  <p className="relative text-center"> abcd</p>
-                </div>
-                <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
-                  <p className="relative text-center"> abcd</p>
-                </div>
+              <div className="grid grid-cols-6 gap-[30px]">
+                {data.map((item) => (
+                  <div
+                    className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2"
+                    key={item.id}
+                  >
+                    <p className="relative text-center">{item.name}</p>
+                  </div>
+                ))}
               </div>
             </div>
 
