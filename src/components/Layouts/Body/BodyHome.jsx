@@ -10,7 +10,7 @@ import axios from "axios";
 
 const BodyHome = () => {
   const [products, setProducts] = useState([]);
-  const [data, setData] = useState([]);
+  const [category, setCategory] = useState([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -29,7 +29,7 @@ const BodyHome = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get("http://localhost:2002/category");
-        setData(response.data);
+        setCategory(response.data);
       } catch (error) {
         console.error(error);
       }
@@ -112,37 +112,40 @@ const BodyHome = () => {
 
             {/* ini dari be */}
             <div className="flex justify-center mt-[60px]">
-              <div className="pl-8 grid grid-cols-4 gap-8">
-                {products.length > 0 ? (
-                  products.map((product) => (
-                    <div
-                      key={product.id}
-                      className="w-full bg-white rounded-lg shadow-md overflow-hidden"
-                    >
-                      {product.images && product.images.length > 0 ? (
-                        <img
-                          src={`http://localhost:2002/products/image/${product.id}`}
-                          alt={product.name}
-                          className="h-56 object-cover"
-                        />
-                      ) : (
-                        <div className="h-56 bg-gray-200"></div>
-                      )}
-                      <div className="p-4">
-                        <h3 className="text-lg font-medium mb-2">
-                          {product.name}
-                        </h3>
-                        <p className="text-base text-gray-700">
-                          {product.price}
-                        </p>
+              <div className="flex justify-center mt-[60px]">
+                <div className="grid grid-cols-4 gap-[30px]">
+                  {products.length > 0 ? (
+                    products.map((product) => (
+                      <div
+                        key={product.id}
+                        className="w-[270px] h-[322px] bg-white rounded-lg mb-[60px]"
+                      >
+                        <div>
+                          {product.images && product.images.length > 0 ? (
+                            <img
+                              src={`http://localhost:2002/products/image/${product.id}`}
+                              alt={product.name}
+                              className="object-contain h-[200px]"
+                            />
+                          ) : (
+                            <div>No image available</div>
+                          )}
+                          <div className="text-base font-medium relative top-[10px] mb-2">
+                            {product.name}
+                          </div>
+                          <div className="text-base text-btn2 relative top-[10px]">
+                            {product.price}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  ))
-                ) : (
-                  <div>No products available</div>
-                )}
+                    ))
+                  ) : (
+                    <div>No products available</div>
+                  )}
+                </div>
               </div>
             </div>
+
             {/* ini dari be */}
 
             <div className="flex justify-center mt-[62px] font-poppins ">
@@ -180,12 +183,13 @@ const BodyHome = () => {
 
             <div className="flex justify-center mt-[60px]">
               <div className="grid grid-cols-6 gap-[30px]">
-                {data.map((item) => (
+                {category.map((item) => (
                   <div
                     className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2"
                     key={item.id}
                   >
                     <p className="relative text-center">{item.name}</p>
+                    {/* <img src={item.icon} alt={item.name} /> */}
                   </div>
                 ))}
               </div>
