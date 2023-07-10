@@ -4,7 +4,25 @@ import guarate from "../../../assets/utilsHome/guarantee.svg";
 import arrowL from "../../../assets/utilsHome/arrowL.svg";
 import arrowR from "../../../assets/utilsHome/arrowR.svg";
 
+// import useEffect,useState dan axios
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 const BodyHome = () => {
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get("http://localhost:2002/products");
+        setProducts(response.data.data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
+
+    fetchProducts();
+  }, []);
   return (
     <>
       <div className="relative min-h-screen">
@@ -27,12 +45,24 @@ const BodyHome = () => {
 
             <div className="flex mr-[180px] mt-[50px] text-white ">
               <div className="w-[1035px] h-[344px] bg-black rounded-lg">
-                <p className="  font-poppins ml-[64px] mt-[73px]">-Luxotic Knit 1.0</p>
-                <h1 className="  font-inter ml-[64px] mt-[35px] text-5xl font-semibold ">New Version  </h1>
-                <h1 className="  font-inter ml-[64px] mt-[2px] text-5xl font font-semibold">of Knit Material.</h1>
+                <p className="  font-poppins ml-[64px] mt-[73px]">
+                  -Luxotic Knit 1.0
+                </p>
+                <h1 className="  font-inter ml-[64px] mt-[35px] text-5xl font-semibold ">
+                  New Version{" "}
+                </h1>
+                <h1 className="  font-inter ml-[64px] mt-[2px] text-5xl font font-semibold">
+                  of Knit Material.
+                </h1>
                 <div className="flex flex-row ml-[64px] mt-[30px]">
-                  <h1 className="font-poppins font-medium border-b-[1px]">Shop Now</h1>
-                  <img src={arrowR} className="bg-white ml-2 rounded-sm " alt="" />
+                  <h1 className="font-poppins font-medium border-b-[1px]">
+                    Shop Now
+                  </h1>
+                  <img
+                    src={arrowR}
+                    className="bg-white ml-2 rounded-sm "
+                    alt=""
+                  />
                 </div>
               </div>
             </div>
@@ -51,12 +81,55 @@ const BodyHome = () => {
                   Explore Our Products
                 </h1>
                 <div className="flex items-center">
-                  <img className="px-[11px] py-[11px] rounded-full bg-bgSecondary" src={arrowL} alt="" />
-                  <img className="ml-[8px] px-[11px] py-[11px] rounded-full bg-bgSecondary" src={arrowR} alt="" />
+                  <img
+                    className="px-[11px] py-[11px] rounded-full bg-bgSecondary"
+                    src={arrowL}
+                    alt=""
+                  />
+                  <img
+                    className="ml-[8px] px-[11px] py-[11px] rounded-full bg-bgSecondary"
+                    src={arrowR}
+                    alt=""
+                  />
                 </div>
               </div>
             </div>
+
+            {/* ini dari be */}
             <div className="flex justify-center mt-[60px]">
+              <div className="pl-8 grid grid-cols-4 gap-8">
+                {products.length > 0 ? (
+                  products.map((product) => (
+                    <div
+                      key={product.id}
+                      className="w-full bg-white rounded-lg shadow-md overflow-hidden"
+                    >
+                      {product.images && product.images.length > 0 ? (
+                        <img
+                          src={`http://localhost:2002/products/image/${product.id}`}
+                          alt={product.name}
+                          className="h-56 object-cover"
+                        />
+                      ) : (
+                        <div className="h-56 bg-gray-200"></div>
+                      )}
+                      <div className="p-4">
+                        <h3 className="text-lg font-medium mb-2">
+                          {product.name}
+                        </h3>
+                        <p className="text-base text-gray-700">
+                          {product.price}
+                        </p>
+                      </div>
+                    </div>
+                  ))
+                ) : (
+                  <div>No products available</div>
+                )}
+              </div>
+            </div>
+            {/* ini dari be */}
+            {/* <div className="flex justify-center mt-[60px]">
               <div className="grid grid-cols-4 gap-[30px] ">
                 <div className="w-[270px] h-[322px] bg-white rounded-lg mb-[60px]">
                   <div className="w-[270px] h-[250px] bg-bgSecondary rounded-lg font-poppins">
@@ -139,75 +212,77 @@ const BodyHome = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
             <div className="flex justify-center mt-[62px] font-poppins ">
-              <button className="w-[234px] h-[56px] bg-btn2 rounded-md font-medium text-white">View All Products</button>
-              
+              <button className="w-[234px] h-[56px] bg-btn2 rounded-md font-medium text-white">
+                View All Products
+              </button>
             </div>
             <div className="ml-[180px] w-[1170px] mt-[75px] h-[0px] border-b-2"></div>
-
-
 
             <div className="ml-[180px] mt-[85px]">
               <div className="flex flex-row mb-[20px]">
                 <div className="w-[20px] h-[40px] bg-btn2 mr-[16px] rounded-md"></div>
                 <p className="flex items-center text-btn2 font-poppins font-semibold">
-                Categories
+                  Categories
                 </p>
               </div>
               <div className="flex flex-row justify-between max-w-[1180px]">
                 <h1 className="text-black font-inter text-4xl font-semibold">
-                Browse By Category
+                  Browse By Category
                 </h1>
                 <div className="flex items-center">
-                  <img className="px-[11px] py-[11px] rounded-full bg-bgSecondary" src={arrowL} alt="" />
-                  <img className="ml-[8px] px-[11px] py-[11px] rounded-full bg-bgSecondary" src={arrowR} alt="" />
+                  <img
+                    className="px-[11px] py-[11px] rounded-full bg-bgSecondary"
+                    src={arrowL}
+                    alt=""
+                  />
+                  <img
+                    className="ml-[8px] px-[11px] py-[11px] rounded-full bg-bgSecondary"
+                    src={arrowR}
+                    alt=""
+                  />
                 </div>
               </div>
             </div>
 
-
-
             <div className="flex justify-center mt-[60px]">
               <div className="grid grid-cols-6 gap-[30px] ">
-                  <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
-                    <p className="relative text-center"> abcd</p>
-                  </div>
-                  <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
-                    <p className="relative text-center"> abcd</p>
-                  </div>
-                  <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
-                    <p className="relative text-center"> abcd</p>
-                  </div>
-                  <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
-                    <p className="relative text-center"> abcd</p>
-                  </div>
-                  <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
-                    <p className="relative text-center"> abcd</p>
-                  </div>
-                  <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
-                    <p className="relative text-center"> abcd</p>
-                  </div>
+                <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
+                  <p className="relative text-center"> abcd</p>
+                </div>
+                <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
+                  <p className="relative text-center"> abcd</p>
+                </div>
+                <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
+                  <p className="relative text-center"> abcd</p>
+                </div>
+                <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
+                  <p className="relative text-center"> abcd</p>
+                </div>
+                <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
+                  <p className="relative text-center"> abcd</p>
+                </div>
+                <div className="w-[170px] h-[145px] bg-white rounded-lg font-poppins border-2">
+                  <p className="relative text-center"> abcd</p>
+                </div>
               </div>
             </div>
-
-
-
-
-
 
             <div className="ml-[180px] mt-[97px]">
               <div className="flex flex-row mb-[20px]">
                 <div className="w-[20px] h-[40px] bg-btn2 mr-[16px] rounded-md"></div>
                 <p className="flex items-center text-btn2 font-poppins font-semibold">
-                This Month
+                  This Month
                 </p>
               </div>
               <div className="flex flex-row justify-between">
                 <h1 className="text-black font-inter text-4xl font-semibold">
-                Best Selling Products
+                  Best Selling Products
                 </h1>
-                <button className=" flex items-center text-white bg-btn2 w-[159px] h-[56px] mr-[180px] justify-center rounded-md">View All</button>
+                <button className=" flex items-center text-white bg-btn2 w-[159px] h-[56px] mr-[180px] justify-center rounded-md">
+                  View All
+                </button>
               </div>
             </div>
 
@@ -256,20 +331,16 @@ const BodyHome = () => {
               </div>
             </div>
 
-
-
-
-
             <div className="ml-[180px] mt-[150px]">
               <div className="flex flex-row mb-[20px]">
                 <div className="w-[20px] h-[40px] bg-btn2 mr-[16px] rounded-md"></div>
                 <p className="flex items-center text-btn2 font-poppins font-semibold">
-                Featured
+                  Featured
                 </p>
               </div>
               <div className="flex">
                 <h1 className="text-black font-inter text-4xl font-semibold">
-                New Arrival
+                  New Arrival
                 </h1>
               </div>
             </div>
@@ -279,68 +350,111 @@ const BodyHome = () => {
                 <div className="row-span-3 w-[570px] h-[600px] bg-black text-white rounded-lg">
                   <div className="isi-card flex flex-col">
                     {/* img -- */}
-                    <h1 className=" ml-[32px] mt-[447px] font-inter font-semibold text-2xl "> PlayStation 5 </h1>
-                    <h1 className=" ml-[32px] mt-[16px] text-[14px] font-poppins font-normal"> Black and White version of the PS5</h1>
-                    <h1 className=" ml-[32px] mt-[2px] text-[14px] font-poppins font-normal">  coming out on sale. </h1>
-                    <h1 className=" text-start ml-[32px] mt-[16px] text-[16px] font-poppins font-medium border-b-[1px] w-[90px]">  Shop Now </h1>
+                    <h1 className=" ml-[32px] mt-[447px] font-inter font-semibold text-2xl ">
+                      {" "}
+                      PlayStation 5{" "}
+                    </h1>
+                    <h1 className=" ml-[32px] mt-[16px] text-[14px] font-poppins font-normal">
+                      {" "}
+                      Black and White version of the PS5
+                    </h1>
+                    <h1 className=" ml-[32px] mt-[2px] text-[14px] font-poppins font-normal">
+                      {" "}
+                      coming out on sale.{" "}
+                    </h1>
+                    <h1 className=" text-start ml-[32px] mt-[16px] text-[16px] font-poppins font-medium border-b-[1px] w-[90px]">
+                      {" "}
+                      Shop Now{" "}
+                    </h1>
                   </div>
                 </div>
                 <div className="col-span-2 w-[570px] h-[284px]  bg-black text-white rounded-lg">
                   <div className="isi-card flex flex-col ">
-                     {/* img -- */}
-                    <h1 className=" ml-[32px] mt-[137px] font-inter font-semibold text-2xl "> PlayStation 4 </h1>
-                    <h1 className=" ml-[32px] mt-[16px] text-[14px] font-poppins font-normal"> Black and White version of the PS5</h1>
-                    <h1 className=" ml-[32px] mt-[2px] text-[14px] font-poppins font-normal">  coming out on sale. </h1>
-                    <h1 className=" text-start ml-[32px] mt-[16px] text-[16px] font-poppins font-medium border-b-[1px] w-[90px]">  Shop Now </h1>
+                    {/* img -- */}
+                    <h1 className=" ml-[32px] mt-[137px] font-inter font-semibold text-2xl ">
+                      {" "}
+                      PlayStation 4{" "}
+                    </h1>
+                    <h1 className=" ml-[32px] mt-[16px] text-[14px] font-poppins font-normal">
+                      {" "}
+                      Black and White version of the PS5
+                    </h1>
+                    <h1 className=" ml-[32px] mt-[2px] text-[14px] font-poppins font-normal">
+                      {" "}
+                      coming out on sale.{" "}
+                    </h1>
+                    <h1 className=" text-start ml-[32px] mt-[16px] text-[16px] font-poppins font-medium border-b-[1px] w-[90px]">
+                      {" "}
+                      Shop Now{" "}
+                    </h1>
                   </div>
                 </div>
                 <div className="row-span-1 col-span-1 w-[270px] h-[284px] mt-[105px]  bg-black text-white rounded-lg">
                   <div className="isi-card flex flex-col">
                     {/* img -- */}
-                    <h1 className=" ml-[24px] mt-[175px] font-inter font-semibold text-2xl "> PlayStation 4 </h1>
-                    <h1 className=" ml-[24px] mt-[8px] text-[14px] font-poppins font-normal"> BLACK AND WHITE</h1>
-                    <h1 className=" text-start ml-[24px] mt-[8px] text-[16px] font-poppins font-medium border-b-[1px] w-[90px]">  Shop Now </h1>
+                    <h1 className=" ml-[24px] mt-[175px] font-inter font-semibold text-2xl ">
+                      {" "}
+                      PlayStation 4{" "}
+                    </h1>
+                    <h1 className=" ml-[24px] mt-[8px] text-[14px] font-poppins font-normal">
+                      {" "}
+                      BLACK AND WHITE
+                    </h1>
+                    <h1 className=" text-start ml-[24px] mt-[8px] text-[16px] font-poppins font-medium border-b-[1px] w-[90px]">
+                      {" "}
+                      Shop Now{" "}
+                    </h1>
                   </div>
                 </div>
                 <div className="row-span-2 col-span-1 w-[270px] h-[284px] mt-[105px]   bg-black text-white rounded-lg">
                   <div className="isi-card flex flex-col">
-                      {/* img -- */}
-                    <h1 className=" ml-[24px] mt-[175px] font-inter font-semibold text-2xl "> PlayStation 4 </h1>
-                    <h1 className=" ml-[24px] mt-[8px] text-[14px] font-poppins font-normal"> BLACK AND WHITE</h1>
-                    <h1 className=" text-start ml-[24px] mt-[8px] text-[16px] font-poppins font-medium border-b-[1px] w-[90px]">  Shop Now </h1>
+                    {/* img -- */}
+                    <h1 className=" ml-[24px] mt-[175px] font-inter font-semibold text-2xl ">
+                      {" "}
+                      PlayStation 4{" "}
+                    </h1>
+                    <h1 className=" ml-[24px] mt-[8px] text-[14px] font-poppins font-normal">
+                      {" "}
+                      BLACK AND WHITE
+                    </h1>
+                    <h1 className=" text-start ml-[24px] mt-[8px] text-[16px] font-poppins font-medium border-b-[1px] w-[90px]">
+                      {" "}
+                      Shop Now{" "}
+                    </h1>
                   </div>
                 </div>
               </div>
             </div>
 
-              <div className="flex flex-row justify-center space-x-[60px] mt-[160px] font-poppins">
-                <div className="relative flex flex-col items-center justify-center w-[262px] h-[161px]">
-                  <img className="mx-auto top-0" src={deliv} alt="" />
-                  <p className="mt-[24px] text-xl font-semibold">FREE AND FAST DELIVERY</p>
-                  <p className="mt-[8px] text-sm">Free delivery for all orders over $140</p>
-                
-                </div>
-                <div className=" relative flex flex-col items-center justify-center w-[262px] h-[161px] ">
-                  <img className="mx-auto top-0" src={cs} alt="" />
-                  <p className="mt-[24px] text-xl font-semibold">24/7 CUSTOMER SERVICE</p>
-                  <p className="mt-[8px] text-sm">Friendly 24/7 customer support</p>
-                
-                </div>
-                <div className="relative flex flex-col items-center justify-center w-[262px] h-[161px] mb-24">
-                  <img className="mx-auto top-0" src={guarate} alt="" />
-                  <p className="mt-[24px] text-xl font-semibold">MONEY BACK GUARANTEE</p>
-                  <p className="mt-[8px] text-sm">We reurn money within 30 days</p>
-                </div>
+            <div className="flex flex-row justify-center space-x-[60px] mt-[160px] font-poppins">
+              <div className="relative flex flex-col items-center justify-center w-[262px] h-[161px]">
+                <img className="mx-auto top-0" src={deliv} alt="" />
+                <p className="mt-[24px] text-xl font-semibold">
+                  FREE AND FAST DELIVERY
+                </p>
+                <p className="mt-[8px] text-sm">
+                  Free delivery for all orders over $140
+                </p>
               </div>
-
-
-
-
-
-
-
-
-
+              <div className=" relative flex flex-col items-center justify-center w-[262px] h-[161px] ">
+                <img className="mx-auto top-0" src={cs} alt="" />
+                <p className="mt-[24px] text-xl font-semibold">
+                  24/7 CUSTOMER SERVICE
+                </p>
+                <p className="mt-[8px] text-sm">
+                  Friendly 24/7 customer support
+                </p>
+              </div>
+              <div className="relative flex flex-col items-center justify-center w-[262px] h-[161px] mb-24">
+                <img className="mx-auto top-0" src={guarate} alt="" />
+                <p className="mt-[24px] text-xl font-semibold">
+                  MONEY BACK GUARANTEE
+                </p>
+                <p className="mt-[8px] text-sm">
+                  We reurn money within 30 days
+                </p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
